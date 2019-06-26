@@ -17,7 +17,8 @@ namespace Domain
         public string State { get; set; }   
         public string ZipCode { get; set; }
         public string Country { get; set; }
-        public string Role { get; set;  }
+        //public string ApplicationRoleName { get; set; }
+        //public ApplicationRole ApplicationRole { get; set; }
         [NotMapped]
         public List<string> MyInterests { get; set; }
         [NotMapped]

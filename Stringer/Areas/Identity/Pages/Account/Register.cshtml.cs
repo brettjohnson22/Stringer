@@ -20,6 +20,7 @@ namespace Stringer.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -55,6 +56,44 @@ namespace Stringer.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [DataType(DataType.Text)]
+            [MaxLength(50)]
+            public string Street { get; set; }
+
+            [DataType(DataType.Text)]
+            [MaxLength(50)]
+            public string City { get; set; }
+
+            [DataType(DataType.Text)]
+            [MaxLength(50)]
+            public string State { get; set; }
+
+            [DataType(DataType.Text)]
+            [MaxLength(15)]
+            [Display(Name = "Zip Code")]
+            public string ZipCode { get; set; }
+
+            [DataType(DataType.Text)]
+            [MaxLength(35)]
+            public string Country { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string ApplicationRoleName { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -67,8 +106,25 @@ namespace Stringer.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Street = Input.Street,
+                    City = Input.City,
+                    State = Input.State,
+                    ZipCode = Input.ZipCode,
+                    Country = Input.Country,
+                };
+
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, Input.ApplicationRoleName);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
