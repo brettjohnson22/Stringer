@@ -35,6 +35,22 @@ namespace Stringer.Controllers
             return View();
         }
 
+        public IActionResult RegisterRedirect()
+        {
+            if (this.User.IsInRole("Member"))
+            {
+                return RedirectToAction("CreateProfile", "Members");
+            }
+            else if(this.User.IsInRole("Business"))
+            {
+                return RedirectToAction();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

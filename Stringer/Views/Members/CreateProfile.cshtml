@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Interests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> interests = new List<SelectListItem>();
+    interests.Add(new SelectListItem() { Text = "Food", Value = "Food" });
+    interests.Add(new SelectListItem() { Text = "Drinking/NightLife", Value = "NightLife" });
+    interests.Add(new SelectListItem() { Text = "Outdoors", Value = "Outdoors" });
+    interests.Add(new SelectListItem() { Text = "Culture", Value = "Culture" });
+   
+}
+
+<h2>Interests</h2>
+
+<div class="container">
+    <div class="row">
+        <p>
+            Let us know some of your interests, and we'll get you started with some categories.
+        </p>
+        <form asp-action="CreateProfile" method="post">
+            @foreach (SelectListItem interest in interests)
+            {
+                <input type="checkbox" value="@interest.Value" /> @interest.Text <br />
+            }
+            <button>Submit</button>
+        </form>
+
+
+    </div>
+
+</div>
+@*This page should present the user with some options to choose from to create initial lists of knots.
+    Suggestions: Food, Nightlife, Outdoors, Culture, Sports
+    *@ 
