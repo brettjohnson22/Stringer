@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Infrastructure;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Stringer.Controllers
 {
@@ -53,19 +54,21 @@ namespace Stringer.Controllers
         }
 
         [HttpGet]
-        public IActionResult TieAKnot(string locationid)
+        public async Task<IActionResult> TieAKnot(string locationid)
         {
-            GetPlaceDetails(locationid);
             Knot knot = new Knot();
+            var types = await GetPlaceDetails(locationid);
             knot.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             knot.Time = DateTime.Now;
+            AssignLocation(knot, locationid);
+            CategorizeType(types);
             //knot.LocationName = locationname;
-            //Method to prompt member to enter location
-            //Method to find type
+            _context.Add(knot);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
-        public async void GetPlaceDetails(string placeId)
+        public async Task<IEnumerable<string>> GetPlaceDetails(string placeId)
         {
             string result;
             using (var client = new HttpClient())
@@ -73,19 +76,28 @@ namespace Stringer.Controllers
                 try
                 {
                     result = await client.GetStringAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&fields=name,type&key=" + APIKey.SecretKey);
-                    dynamic jsonData = JObject.Parse(result);
-                    var types = jsonData.result.types.ToList();
-
+                    //dynamic jsonData = JObject.Parse(result);
+                    dynamic jObj = JsonConvert.DeserializeObject(result);
+                    var types = jObj.result.types;
+                    int count = types.Count;
+                    var typeList = new List<string>();
+                    for(int i = 0; i < count; i++)
+                    {
+                        var data = types[i].ToString();
+                        typeList.Add(data);
+                    }
+                    Console.WriteLine("Made it.");
+                    return typeList;
                 }
                 catch (Exception ex)
                 {
-
+                    return null;
                 }
 
             }
         }
 
-        public IEnumerable<string> CategorizeType(List<string> types)
+        public IEnumerable<string> CategorizeType(IEnumerable<string> types)
         {
             List<string> categorizedTypes = new List<string>();
             if (types.Contains("bakery") || types.Contains("food") || types.Contains("restaurant"))
@@ -94,7 +106,7 @@ namespace Stringer.Controllers
             }
             if (types.Contains("bar") || types.Contains("night_club"))
             {
-                categorizedTypes.Add("nightlift");
+                categorizedTypes.Add("nightlife");
             }
             if (types.Contains("amusement_park") || types.Contains("aquarium") || types.Contains("bowling_alley") || types.Contains("casino") || types.Contains("movie_theater") || types.Contains("stadium") || types.Contains("zoo"))
             {
@@ -108,7 +120,7 @@ namespace Stringer.Controllers
             {
                 categorizedTypes.Add("culture");
             }
-            if (types.Contains("pet_store") || types.Contains("zoo") || types.Contains("aquarium") || types.Contains("veterinary_Care"))
+            if (types.Contains("pet_store") || types.Contains("zoo") || types.Contains("aquarium") || types.Contains("veterinary_care"))
             {
                 categorizedTypes.Add("animals");
             }
@@ -123,12 +135,9 @@ namespace Stringer.Controllers
             return categorizedTypes;
         }
 
-        public void CheckType(string type)
+        public void AssignLocation(Knot knot, string locationid)
         {
-            switch (type)
-            {
-
-            }
+            
         }
     }
 }

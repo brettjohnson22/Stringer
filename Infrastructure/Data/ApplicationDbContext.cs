@@ -10,6 +10,7 @@ namespace Infrastructure
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public DbSet<Knot> Knots { get; set; }
+        public DbSet<Location> Locations { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

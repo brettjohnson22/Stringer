@@ -15,6 +15,7 @@ namespace Domain
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string LocationName { get; set; }
+        [NotMapped]
         public IEnumerable<string> Types { get; set; }
         public DateTime Time { get; set; }
         public string Comments { get; set; }

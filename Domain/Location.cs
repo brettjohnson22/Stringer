@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Domain
 {
-    class Location
+    public class Location
     {
         [Key]
-        string Id { get; set; }
-        string Name { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
