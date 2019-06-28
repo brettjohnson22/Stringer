@@ -13,10 +13,6 @@ namespace Infrastructure.Data
         {
             context.Database.EnsureCreated();
 
-            //String adminId1 = "";
-            //String adminId2 = "";
-            //string password = "Qw123$";
-
             string role1 = "Business";
             string desc1 = "This is the business role";
 
@@ -31,6 +27,21 @@ namespace Infrastructure.Data
             {
                 await roleManager.CreateAsync(new ApplicationRole(role2, desc2, DateTime.Now));
             }
+        }
+
+        public static void SeedInterests(ApplicationDbContext context)
+        {
+            context.Database.EnsureCreated();
+            context.Interests.Add(new Interest { Name = "food" });
+            context.Interests.Add(new Interest { Name = "nightlife" });
+            context.Interests.Add(new Interest { Name = "activities" });
+            context.Interests.Add(new Interest { Name = "animals" });
+            context.Interests.Add(new Interest { Name = "outdoors" });
+            context.Interests.Add(new Interest { Name = "culture" });
+            context.Interests.Add(new Interest { Name = "fashion" });
+            context.Interests.Add(new Interest { Name = "wellnes" });
+            context.SaveChanges();
+
         }
     }
 }

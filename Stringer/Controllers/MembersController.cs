@@ -54,14 +54,14 @@ namespace Stringer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TieAKnot(string locationid)
+        public async Task<IActionResult> TieAKnot(string locationid, string locationname)
         {
             Knot knot = new Knot();
             var types = await GetPlaceDetails(locationid);
             knot.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             knot.Time = DateTime.Now;
-            AssignLocation(knot, locationid);
-            CategorizeType(types);
+            AssignLocation(knot, locationid, locationname);
+            var categories = CategorizeType(types);
             //knot.LocationName = locationname;
             _context.Add(knot);
             _context.SaveChanges();
@@ -86,14 +86,12 @@ namespace Stringer.Controllers
                         var data = types[i].ToString();
                         typeList.Add(data);
                     }
-                    Console.WriteLine("Made it.");
                     return typeList;
                 }
                 catch (Exception ex)
                 {
                     return null;
                 }
-
             }
         }
 
@@ -135,9 +133,24 @@ namespace Stringer.Controllers
             return categorizedTypes;
         }
 
-        public void AssignLocation(Knot knot, string locationid)
+        public void AssignLocation(Knot knot, string locationid, string locationName)
         {
-            
+            var existingPlace = _context.Locations.SingleOrDefault(l => l.Id == locationid);
+            if (existingPlace == null)
+            {
+                Location newLocation = new Location();
+                newLocation.Id = locationid;
+                newLocation.Name = locationName;
+                _context.Add(newLocation);
+                _context.SaveChanges();
+                existingPlace = newLocation;
+            }
+            knot.LocationId = existingPlace.Id;
+        }
+
+        public void AssignCategories(IEnumerable<string> categories)
+        {
+
         }
     }
 }

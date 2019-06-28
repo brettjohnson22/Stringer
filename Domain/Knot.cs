@@ -14,7 +14,9 @@ namespace Domain
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        public string LocationName { get; set; }
+        [ForeignKey("Location")]
+        public string LocationId { get; set; }
+        public Location Location { get; set; }
         [NotMapped]
         public IEnumerable<string> Types { get; set; }
         public DateTime Time { get; set; }

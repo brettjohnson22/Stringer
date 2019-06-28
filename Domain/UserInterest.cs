@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain
 {
-    class UserInterest
+    public class UserInterest
     {
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }

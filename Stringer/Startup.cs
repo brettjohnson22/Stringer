@@ -76,6 +76,7 @@ namespace Stringer
             });
 
             DummyData.Initialize(context, roleManager).Wait();
+            //DummyData.SeedInterests(context);
         }
     }
 }
