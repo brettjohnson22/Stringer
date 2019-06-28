@@ -9,6 +9,7 @@ using Infrastructure;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Stringer.Controllers
 {
@@ -19,9 +20,42 @@ namespace Stringer.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View();
+            ViewData["TimeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "time_asc" : "";
+            ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
+            ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var myKnots = _context.Knots.Include(k => k.Location).Where(k => k.ApplicationUserId == userId);
+            if (myKnots == null)
+            {
+                return RedirectToAction("CreateProfile");
+            }
+            else
+            {
+                switch (sortOrder)
+                {
+                    case "name":
+                        myKnots = myKnots.OrderBy(k => k.Location.Name);
+                        break;
+                    case "name_desc":
+                        myKnots = myKnots.OrderByDescending(k => k.Location.Name);
+                        break;
+                    case "type":
+                        myKnots = myKnots.OrderBy(k => k.Type);
+                        break;
+                    case "type_desc":
+                        myKnots = myKnots.OrderByDescending(k => k.Type);
+                        break;
+                    case "time_asc":
+                        myKnots = myKnots.OrderBy(k => k.Time);
+                        break;
+                    default:
+                        myKnots = myKnots.OrderByDescending(k => k.Time);
+                        break;
+                }
+                return View(await myKnots.AsNoTracking().ToListAsync());
+            }
         }
 
         public IActionResult CreateProfile()
@@ -54,21 +88,25 @@ namespace Stringer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TieAKnot(string locationid, string locationname)
+        public async Task<IActionResult> TieAKnot(string locationid)
         {
             Knot knot = new Knot();
             var types = await GetPlaceDetails(locationid);
             knot.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             knot.Time = DateTime.Now;
-            AssignLocation(knot, locationid, locationname);
+            var locationName = types[0];
+            types.Remove(types[0]);
+            AssignLocation(knot, locationid, locationName);
             var categories = CategorizeType(types);
-            //knot.LocationName = locationname;
+            var categoryList = categories.ToList();
+            knot.Type = categoryList[0];
+            AssignCategories(categories);
             _context.Add(knot);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IEnumerable<string>> GetPlaceDetails(string placeId)
+        public async Task<List<string>> GetPlaceDetails(string placeId)
         {
             string result;
             using (var client = new HttpClient())
@@ -76,11 +114,12 @@ namespace Stringer.Controllers
                 try
                 {
                     result = await client.GetStringAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&fields=name,type&key=" + APIKey.SecretKey);
-                    //dynamic jsonData = JObject.Parse(result);
                     dynamic jObj = JsonConvert.DeserializeObject(result);
+                    var name = jObj.result.name.ToString();
                     var types = jObj.result.types;
                     int count = types.Count;
                     var typeList = new List<string>();
+                    typeList.Add(name);
                     for(int i = 0; i < count; i++)
                     {
                         var data = types[i].ToString();
@@ -98,17 +137,17 @@ namespace Stringer.Controllers
         public IEnumerable<string> CategorizeType(IEnumerable<string> types)
         {
             List<string> categorizedTypes = new List<string>();
-            if (types.Contains("bakery") || types.Contains("food") || types.Contains("restaurant"))
+            if (types.Contains("amusement_park") || types.Contains("aquarium") || types.Contains("bowling_alley") || types.Contains("casino") || types.Contains("movie_theater") || types.Contains("stadium") || types.Contains("zoo"))
             {
-                categorizedTypes.Add("food");
+                categorizedTypes.Add("activities");
             }
             if (types.Contains("bar") || types.Contains("night_club"))
             {
                 categorizedTypes.Add("nightlife");
             }
-            if (types.Contains("amusement_park") || types.Contains("aquarium") || types.Contains("bowling_alley") || types.Contains("casino") || types.Contains("movie_theater") || types.Contains("stadium") || types.Contains("zoo"))
+            if (types.Contains("bakery") || types.Contains("food") || types.Contains("restaurant"))
             {
-                categorizedTypes.Add("activities");
+                categorizedTypes.Add("food");
             }
             if (types.Contains("campground") || types.Contains("park") || types.Contains("natural_feature"))
             {
@@ -130,6 +169,10 @@ namespace Stringer.Controllers
             {
                 categorizedTypes.Add("wellness");
             }
+            if(categorizedTypes.Count == 0)
+            {
+                categorizedTypes.Add("miscellaneous");
+            }
             return categorizedTypes;
         }
 
@@ -150,7 +193,21 @@ namespace Stringer.Controllers
 
         public void AssignCategories(IEnumerable<string> categories)
         {
-
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            foreach (string category in categories)
+            {
+                if(category == "miscellaneous")
+                {
+                    continue;
+                }
+                var interest = _context.Interests.FirstOrDefault(i => i.Name == category);
+                var userInterestInDb = _context.UserInterests.FirstOrDefault(ui => ui.ApplicationUserId == userId && ui.InterestId == interest.Id);
+                if (userInterestInDb == null)
+                {
+                    _context.Add(new UserInterest { ApplicationUserId = userId, InterestId = interest.Id });
+                }
+            }
+            _context.SaveChanges();
         }
     }
 }

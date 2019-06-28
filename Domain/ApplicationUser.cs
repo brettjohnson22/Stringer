@@ -18,8 +18,8 @@ namespace Domain
         public string ZipCode { get; set; }
         public string Country { get; set; }
         public ICollection<UserInterest> UserInterests { get; set; }
-        [NotMapped]
-        public List<Knot> MyKnots { get; set; }
+        //[NotMapped]
+        //public List<Knot> MyKnots { get; set; }
 
     }
 }

@@ -5,22 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Stringer</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateKnot">Tie a New Knot</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location.Name)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Time)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Comments)
@@ -35,13 +35,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Location.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comments)

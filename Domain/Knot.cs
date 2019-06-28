@@ -17,8 +17,7 @@ namespace Domain
         [ForeignKey("Location")]
         public string LocationId { get; set; }
         public Location Location { get; set; }
-        [NotMapped]
-        public IEnumerable<string> Types { get; set; }
+        public string Type { get; set; }
         public DateTime Time { get; set; }
         public string Comments { get; set; }
         public string Photo { get; set; }

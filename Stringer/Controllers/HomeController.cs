@@ -6,14 +6,32 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 //using Application;
 using Domain;
+using Infrastructure;
 
 namespace Stringer.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Member"))
+            {
+                return RedirectToAction("Index", "Members");
+            }
+            else if (User.IsInRole("Business"))
+            {
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult About()
