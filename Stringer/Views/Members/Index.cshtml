@@ -11,7 +11,8 @@
     var secondinterest = ViewBag.SecondInterest;
 }
 <p>
-    <a asp-action="CreateKnot">Tie a New Knot</a>
+    <a asp-action="CreateKnot">Tie a New Knot</a><br />
+    Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a>
 </p>
 <div id="topCategory">
     <table class="table">
@@ -21,13 +22,13 @@
                     @Html.DisplayNameFor(model => model.Photo)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                    @Html.DisplayNameFor(model => model.Location.Name)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                    @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                    @Html.DisplayNameFor(model => model.Type)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
@@ -38,7 +39,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if (item.Type == "miscellaneous")
+                if (item.Type == topinterest)
                 {
                     <tr>
                         <td>
@@ -72,13 +73,13 @@
         <thead>
             <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                    @Html.DisplayNameFor(model => model.Location.Name)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                    @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                    @Html.DisplayNameFor(model => model.Type)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
@@ -92,7 +93,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                @if (item.Type == "food")
+                @if (item.Type == secondinterest)
                 {
                     <tr>
                         <td>
@@ -121,18 +122,19 @@
         </tbody>
     </table>
 </div>
+Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
 <div id="miscCategory">
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                    @Html.DisplayNameFor(model => model.Location.Name)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                    @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                    @Html.DisplayNameFor(model => model.Type)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
@@ -146,7 +148,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                @if (item.Type == "miscellaneous")
+                @if (item.Type != topinterest && item.Type != secondinterest)
                 {
                     <tr>
                         <td>

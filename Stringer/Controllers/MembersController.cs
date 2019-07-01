@@ -84,42 +84,9 @@ namespace Stringer.Controllers
             //"Culture", Value = "6" });
             //"Fashion", Value = "7" });
             //"Wellness", Value = "8" });
-            interests[0] = user.TopInterest;
-            interests[1] = user.SecondInterest;
-            if (interests.Contains(1))
-            {
-                
-            }
-            if (interests.Contains(2))
-            {
-
-            }
-            if (interests.Contains(3))
-            {
-
-            }
-            if (interests.Contains(4))
-            {
-
-            }
-            if (interests.Contains(5))
-            {
-
-            }
-            if (interests.Contains(6))
-            {
-
-            }
-            if (interests.Contains(7))
-            {
-
-            }
-            if (interests.Contains(8))
-            {
-
-            }
-
-
+            user.TopInterest = interests[0];
+            user.SecondInterest = interests[1];
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
