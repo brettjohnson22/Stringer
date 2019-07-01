@@ -6,7 +6,7 @@
 }
 
 <h2>Stringer</h2>
-@{ 
+@{
     var topinterest = ViewBag.TopInterest;
     var secondinterest = ViewBag.SecondInterest;
 }
@@ -15,6 +15,7 @@
     Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a>
 </p>
 <div id="topCategory">
+    <h3 class="text-center">@topinterest.ToUpper()</h3>
     <table class="table">
         <thead>
             <tr>
@@ -26,9 +27,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Time)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Type)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
@@ -43,7 +41,17 @@
                 {
                     <tr>
                         <td>
-                            <img src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Location.Name)" height="50" width="50" />
+                            @{
+                                if (item.Photo != null)
+                                {
+                                    <a href="@Html.DisplayFor(modelItem => item.Photo)" data-lightbox="@Html.DisplayFor(modelItem => item.Location.Name)" data-title="@Html.DisplayFor(modelItem => item.Location.Name)"><img src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Location.Name)" height="50" width="50" /></a>
+
+                                }
+                                else
+                                {
+                                    <a asp-action="AddPhoto" asp-route-id="@item.Id">Add Photo</a>
+                                }
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Location.Name)
@@ -52,14 +60,10 @@
                             @Html.DisplayFor(modelItem => item.Time)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
@@ -69,9 +73,13 @@
     </table>
 </div>
 <div id="bottomCategory">
+    <h3 class="text-center">@secondinterest.ToUpper()</h3>
     <table class="table">
         <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Location.Name)
                 </th>
@@ -79,13 +87,7 @@
                     @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.Comments)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Photo)
                 </th>
                 <th></th>
             </tr>
@@ -97,23 +99,29 @@
                 {
                     <tr>
                         <td>
+                            @{
+                                if (item.Photo != null)
+                                {
+                                    <a href="@Html.DisplayFor(modelItem => item.Photo)" data-lightbox="@Html.DisplayFor(modelItem => item.Location.Name)" data-title="@Html.DisplayFor(modelItem => item.Location.Name)"><img src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Location.Name)" height="50" width="50" /></a>
+
+                                }
+                                else
+                                {
+                                    <a asp-action="AddPhoto" asp-route-id="@item.Id">Add Photo</a>
+                                }
+                            }
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Location.Name)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Time)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Photo)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
@@ -124,9 +132,13 @@
 </div>
 Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
 <div id="miscCategory">
+    <h3 class="text-center">OTHER</h3>
     <table class="table">
         <thead>
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Location.Name)
                 </th>
@@ -139,9 +151,7 @@ Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">T
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Photo)
-                </th>
+
                 <th></th>
             </tr>
         </thead>
@@ -151,6 +161,20 @@ Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">T
                 @if (item.Type != topinterest && item.Type != secondinterest)
                 {
                     <tr>
+                        <td>
+                            @{
+                                if (item.Photo != null)
+                                {
+                                    <a href="@Html.DisplayFor(modelItem => item.Photo)" data-lightbox="@Html.DisplayFor(modelItem => item.Location.Name)" data-title="@Html.DisplayFor(modelItem => item.Location.Name)">
+                                        <img src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Location.Name)" height="50" width="50" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="AddPhoto" asp-route-id="@item.Id">Add Photo</a>
+                                }
+                            }
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Location.Name)
                         </td>
@@ -164,11 +188,7 @@ Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">T
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Photo)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>

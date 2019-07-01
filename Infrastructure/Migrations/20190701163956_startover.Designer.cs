@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190628155954_userinterests")]
-    partial class userinterests
+    [Migration("20190701163956_startover")]
+    partial class startover
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,11 +90,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("SecondInterest");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("State");
 
                     b.Property<string>("Street");
+
+                    b.Property<int>("TopInterest");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -143,6 +147,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Photo");
 
                     b.Property<DateTime>("Time");
+
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 

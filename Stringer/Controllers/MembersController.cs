@@ -18,11 +18,13 @@ namespace Stringer.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         public MembersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
+
         public async Task<IActionResult> Index(string sortOrder)
         {
             ViewData["TimeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "time_asc" : "";
@@ -84,6 +86,15 @@ namespace Stringer.Controllers
             //"Culture", Value = "6" });
             //"Fashion", Value = "7" });
             //"Wellness", Value = "8" });
+            foreach (int input in interests)
+            {
+                var interest = _context.Interests.FirstOrDefault(i => i.Id == input);
+                var userInterestInDb = _context.UserInterests.FirstOrDefault(ui => ui.ApplicationUserId == user.Id && ui.InterestId == interest.Id);
+                if (userInterestInDb == null)
+                {
+                    _context.Add(new UserInterest { ApplicationUserId = user.Id, InterestId = interest.Id });
+                }
+            }
             user.TopInterest = interests[0];
             user.SecondInterest = interests[1];
             _context.SaveChanges();
@@ -225,6 +236,23 @@ namespace Stringer.Controllers
                 }
             }
             _context.SaveChanges();
+        }
+
+        public IActionResult AddPhoto(string id)
+        {
+            var knot = _context.Knots.Single(k => k.Id == id);
+            return View(knot);
+        }
+
+        [HttpPost]
+        public IActionResult AddPhoto(Knot knot)
+        {
+            var knotInDb = _context.Knots.Single(k => k.Id == knot.Id);
+            knotInDb.Type = knot.Type;
+            knotInDb.Photo = knot.Photo;
+            knotInDb.Comments = knot.Comments;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
