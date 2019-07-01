@@ -78,14 +78,6 @@ namespace Stringer.Controllers
         public async Task<IActionResult> CreateProfile(int[] interests)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            //"Food", Value = "1" });
-            //"Drinking/NightLife", Value = "2" });
-            //"Activities", Value = "3" });
-            //"Animals", Value = "4" });
-            //"Outdoors", Value = "5" });
-            //"Culture", Value = "6" });
-            //"Fashion", Value = "7" });
-            //"Wellness", Value = "8" });
             foreach (int input in interests)
             {
                 var interest = _context.Interests.FirstOrDefault(i => i.Id == input);
@@ -127,6 +119,7 @@ namespace Stringer.Controllers
             var categoryList = categories.ToList();
             knot.Type = categoryList[0];
             AssignCategories(categories);
+            DetermineNewInterests();
             _context.Add(knot);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -238,6 +231,38 @@ namespace Stringer.Controllers
             _context.SaveChanges();
         }
 
+        public async void DetermineNewInterests()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var myInterests = _context.UserInterests.Where(ui => ui.ApplicationUserId == user.Id);
+            var myKnots = _context.Knots.Where(k => k.ApplicationUserId == user.Id);
+            var topInterest = myKnots.GroupBy(k => k.Type).OrderByDescending(g => g.Count()).First().Key;
+            var topInterestInDB = _context.Interests.Where(i => i.Name == topInterest).FirstOrDefault();
+            if(topInterestInDB.Id != user.TopInterest)
+            {
+                user.SecondInterest = user.TopInterest;
+                user.TopInterest = topInterestInDB.Id;
+            }
+            //_context.SaveChanges();
+        }
+
+        public IActionResult EditKnot (string id)
+        {
+            var knot = _context.Knots.Single(k => k.Id == id);
+            return View(knot);
+        }
+
+        [HttpPost]
+        public IActionResult EditKnot(Knot knot)
+        {
+            var knotInDb = _context.Knots.Single(k => k.Id == knot.Id);
+            knotInDb.Type = knot.Type;
+            knotInDb.Photo = knot.Photo;
+            knotInDb.Comments = knot.Comments;
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult AddPhoto(string id)
         {
             var knot = _context.Knots.Single(k => k.Id == id);
@@ -248,7 +273,6 @@ namespace Stringer.Controllers
         public IActionResult AddPhoto(Knot knot)
         {
             var knotInDb = _context.Knots.Single(k => k.Id == knot.Id);
-            knotInDb.Type = knot.Type;
             knotInDb.Photo = knot.Photo;
             knotInDb.Comments = knot.Comments;
             _context.SaveChanges();

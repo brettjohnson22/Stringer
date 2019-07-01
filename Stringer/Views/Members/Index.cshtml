@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Stringer</h2>
+<h1 class="text-center">Stringer</h1>
 @{
     var topinterest = ViewBag.TopInterest;
     var secondinterest = ViewBag.SecondInterest;
 }
-<p>
+<p class="text-center">
     <a asp-action="CreateKnot">Tie a New Knot</a><br />
-    Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a>
+    Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
 </p>
 <div id="topCategory">
     <h3 class="text-center">@topinterest.ToUpper()</h3>
@@ -130,7 +130,6 @@
         </tbody>
     </table>
 </div>
-Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
 <div id="miscCategory">
     <h3 class="text-center">OTHER</h3>
     <table class="table">
