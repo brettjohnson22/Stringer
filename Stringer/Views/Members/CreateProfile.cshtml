@@ -3,13 +3,14 @@
     ViewData["Title"] = "Interests";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<SelectListItem> interests = new List<SelectListItem>();
-    interests.Add(new SelectListItem() { Text = "Food", Value = "Food" });
-    interests.Add(new SelectListItem() { Text = "Drinking/NightLife", Value = "NightLife" });
-    interests.Add(new SelectListItem() { Text = "Outdoors", Value = "Outdoors" });
-    interests.Add(new SelectListItem() { Text = "Culture", Value = "Culture" });
-    interests.Add(new SelectListItem() { Text = "Animals", Value = "Animals" });
-    interests.Add(new SelectListItem() { Text = "Wellness", Value = "Wellness" });
-    interests.Add(new SelectListItem() { Text = "Fashion", Value = "Fashion" });
+    interests.Add(new SelectListItem() { Text = "Food", Value = "1" });
+    interests.Add(new SelectListItem() { Text = "Drinking/NightLife", Value = "2" });
+    interests.Add(new SelectListItem() { Text = "Activities", Value = "3" });
+    interests.Add(new SelectListItem() { Text = "Animals", Value = "4" });
+    interests.Add(new SelectListItem() { Text = "Outdoors", Value = "5" });
+    interests.Add(new SelectListItem() { Text = "Culture", Value = "6" });
+    interests.Add(new SelectListItem() { Text = "Fashion", Value = "7" });
+    interests.Add(new SelectListItem() { Text = "Wellness", Value = "8" });
 
 }
 
@@ -18,20 +19,14 @@
 <div class="container">
     <div class="row">
         <p>
-            Let us know some of your interests, and we'll get you started with some categories.
+            Let us know some of your interests, and we'll get you started with some categories. Choose the top 2 interests you'd like to keep track of.'
         </p>
         <form asp-action="CreateProfile" method="post">
             @foreach (SelectListItem interest in interests)
             {
-                <input type="checkbox" value="@interest.Value" /> @interest.Text <br />
+                <input type="checkbox" class="interestBox" name="interests" value="@interest.Value" /> @interest.Text <br />
             }
-            <button>Submit</button>
+            <input type="submit" name="Submit" value="submit" />
         </form>
-
-
     </div>
-
 </div>
-@*This page should present the user with some options to choose from to create initial lists of knots.
-    Suggestions: Food, Nightlife, Outdoors, Culture, Sports
-    *@ 

@@ -6,55 +6,172 @@
 }
 
 <h2>Stringer</h2>
-
+@{ 
+    var topinterest = ViewBag.TopInterest;
+    var secondinterest = ViewBag.SecondInterest;
+}
 <p>
     <a asp-action="CreateKnot">Tie a New Knot</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div id="topCategory">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.Type == "miscellaneous")
+                {
+                    <tr>
+                        <td>
+                            <img src="@Html.DisplayFor(modelItem => item.Photo)" alt="@Html.DisplayFor(modelItem => item.Location.Name)" height="50" width="50" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="bottomCategory">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.Type == "food")
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Photo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div id="miscCategory">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" NameSortParm"]">@Html.DisplayNameFor(model => model.Location.Name)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TimeSortParm"]">@Html.DisplayNameFor(model => model.Time)</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData[" TypeSortParm"]">@Html.DisplayNameFor(model => model.Type)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Photo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.Type == "miscellaneous")
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Photo)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -4,14 +4,16 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190628194933_knottype")]
+    partial class knottype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,15 +90,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("SecondInterest");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("State");
 
                     b.Property<string>("Street");
-
-                    b.Property<int>("TopInterest");
 
                     b.Property<bool>("TwoFactorEnabled");
 

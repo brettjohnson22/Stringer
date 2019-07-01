@@ -39,7 +39,7 @@ namespace Infrastructure.Data
             context.Interests.Add(new Interest { Name = "outdoors" });
             context.Interests.Add(new Interest { Name = "culture" });
             context.Interests.Add(new Interest { Name = "fashion" });
-            context.Interests.Add(new Interest { Name = "wellnes" });
+            context.Interests.Add(new Interest { Name = "wellness" });
             context.SaveChanges();
 
         }

@@ -10,15 +10,18 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Stringer.Controllers
 {
     public class MembersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public MembersController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public MembersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index(string sortOrder)
         {
@@ -26,6 +29,7 @@ namespace Stringer.Controllers
             ViewData["TypeSortParm"] = sortOrder == "type" ? "type_desc" : "type";
             ViewData["NameSortParm"] = sortOrder == "name" ? "name_desc" : "name";
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
             var myKnots = _context.Knots.Include(k => k.Location).Where(k => k.ApplicationUserId == userId);
             if (myKnots == null)
             {
@@ -33,6 +37,10 @@ namespace Stringer.Controllers
             }
             else
             {
+                var topInterest = _context.Interests.Single(i => i.Id == user.TopInterest);
+                var secondInterest = _context.Interests.Single(i => i.Id == user.SecondInterest);
+                ViewBag.TopInterest = topInterest.Name;
+                ViewBag.SecondInterest = secondInterest.Name;
                 switch (sortOrder)
                 {
                     case "name":
@@ -65,14 +73,54 @@ namespace Stringer.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProfile(List<Interest> interests)
+        public async Task<IActionResult> CreateProfile(int[] interests)
         {
-            //This needs to take the selected buttons from the previous method and create a homepage with empty lists depending on what is selected.
-            //If food, suggest restaurants and cafes
-            //If nightlife, suggest bar
-            //If Outdoor, suggest parks and campgrounds
-            //If culture, suggest museums and 
-            return RedirectToAction();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            //"Food", Value = "1" });
+            //"Drinking/NightLife", Value = "2" });
+            //"Activities", Value = "3" });
+            //"Animals", Value = "4" });
+            //"Outdoors", Value = "5" });
+            //"Culture", Value = "6" });
+            //"Fashion", Value = "7" });
+            //"Wellness", Value = "8" });
+            interests[0] = user.TopInterest;
+            interests[1] = user.SecondInterest;
+            if (interests.Contains(1))
+            {
+                
+            }
+            if (interests.Contains(2))
+            {
+
+            }
+            if (interests.Contains(3))
+            {
+
+            }
+            if (interests.Contains(4))
+            {
+
+            }
+            if (interests.Contains(5))
+            {
+
+            }
+            if (interests.Contains(6))
+            {
+
+            }
+            if (interests.Contains(7))
+            {
+
+            }
+            if (interests.Contains(8))
+            {
+
+            }
+
+
+            return RedirectToAction(nameof(Index));
         }
 
         public ApplicationUser GetUser()
@@ -181,9 +229,11 @@ namespace Stringer.Controllers
             var existingPlace = _context.Locations.SingleOrDefault(l => l.Id == locationid);
             if (existingPlace == null)
             {
-                Location newLocation = new Location();
-                newLocation.Id = locationid;
-                newLocation.Name = locationName;
+                Location newLocation = new Location
+                {
+                    Id = locationid,
+                    Name = locationName
+                };
                 _context.Add(newLocation);
                 _context.SaveChanges();
                 existingPlace = newLocation;

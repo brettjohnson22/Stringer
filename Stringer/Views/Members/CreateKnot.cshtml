@@ -12,13 +12,10 @@
     <meta charset="utf-8">
     <title>Places Search Box</title>
     <style>
-        /* Always set the map height explicitly to define the size of the div
-        * element that contains the map. */
         #map {
             height: 500px;
             width: 700px;
         }
-        /* Optional: Makes the sample page fill the window. */
         html, body {
             height: 100%;
             margin: 0;
@@ -99,9 +96,10 @@
     </style>
 </head>
 <body>
+    <h3>Where are you? (Search for a location)</h3>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
-    <div><p>Check in at dcc</p><form method="post"><button asp-controller="Members" asp-action="TieAKnot" asp-route-locationName="' + place.name + '" asp-route-locationId="' + place.place_id + '">Click!</button></form></div>'
+
     <script>
         function initAutocomplete() {
             var baseCamp = { lat: 43.0341, lng: -87.9117 };
@@ -186,7 +184,6 @@
     }
 
     <script src=@srcKey></script>
-
 
 </body>
 </html>

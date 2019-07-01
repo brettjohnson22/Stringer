@@ -88,15 +88,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("SecondInterest");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("State");
 
                     b.Property<string>("Street");
-
-                    b.Property<int>("TopInterest");
 
                     b.Property<bool>("TwoFactorEnabled");
 

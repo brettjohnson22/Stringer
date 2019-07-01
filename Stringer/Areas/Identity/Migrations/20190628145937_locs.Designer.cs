@@ -4,14 +4,16 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190628145937_locs")]
+    partial class locs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,15 +90,11 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("SecondInterest");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("State");
 
                     b.Property<string>("Street");
-
-                    b.Property<int>("TopInterest");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -118,19 +116,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Domain.Interest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Interests");
-                });
-
             modelBuilder.Entity("Domain.Knot", b =>
                 {
                     b.Property<string>("Id")
@@ -140,19 +125,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Comments");
 
-                    b.Property<string>("LocationId");
+                    b.Property<string>("LocationName");
 
                     b.Property<string>("Photo");
 
                     b.Property<DateTime>("Time");
 
-                    b.Property<string>("Type");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("LocationId");
 
                     b.ToTable("Knots");
                 });
@@ -167,19 +148,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("Domain.UserInterest", b =>
-                {
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("InterestId");
-
-                    b.HasKey("ApplicationUserId", "InterestId");
-
-                    b.HasIndex("InterestId");
-
-                    b.ToTable("UserInterests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -277,23 +245,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("Domain.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
-                });
-
-            modelBuilder.Entity("Domain.UserInterest", b =>
-                {
-                    b.HasOne("Domain.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserInterests")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Interest", "Interest")
-                        .WithMany("UserInterests")
-                        .HasForeignKey("InterestId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
