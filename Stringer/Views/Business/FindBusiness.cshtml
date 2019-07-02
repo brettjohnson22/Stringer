@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "CreateKnot";
+﻿
+@{
+    ViewData["Title"] = "FindBusiness";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateKnot</h2>
+<h2>FindBusiness</h2>
 
 <!DOCTYPE html>
 <html>
@@ -84,7 +85,7 @@
 
                     marker.addListener('click', function (event) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: '<div><p></p><a id ="popButton" href="/Members/CheckIn?locationid=' + place.place_id + '">Check in at ' + place.name + '?</button></div>'
+                            content: '<div><p></p><a id ="popButton" href="/Business/ClaimBusiness?locationid=' + place.place_id + '">Claim ' + place.name + ' as your business?</button></div>'
                         });
                         infowindow.setPosition(event.latLng);
                         infowindow.open(map);
@@ -100,7 +101,6 @@
                 });
                 map.fitBounds(bounds);
             });
-
         };
 
     </script>

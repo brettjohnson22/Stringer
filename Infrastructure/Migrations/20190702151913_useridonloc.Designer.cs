@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190628155954_userinterests")]
-    partial class userinterests
+    [Migration("20190702151913_useridonloc")]
+    partial class useridonloc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,12 +58,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("BusinessName");
 
-                    b.Property<string>("City");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<string>("Country");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -90,18 +86,16 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("SecondInterest");
+
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("State");
-
-                    b.Property<string>("Street");
+                    b.Property<int>("TopInterest");
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -144,6 +138,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("Time");
 
+                    b.Property<string>("Type");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -158,9 +154,15 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<bool>("IsClaimed");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Locations");
                 });
@@ -277,6 +279,13 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("Domain.Location", b =>
+                {
+                    b.HasOne("Domain.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Domain.UserInterest", b =>

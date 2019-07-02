@@ -106,7 +106,7 @@ namespace Stringer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TieAKnot(string locationid)
+        public async Task<IActionResult> CheckIn(string locationid)
         {
             Knot knot = new Knot();
             var types = await GetPlaceDetails(locationid);
@@ -243,7 +243,6 @@ namespace Stringer.Controllers
                 user.SecondInterest = user.TopInterest;
                 user.TopInterest = topInterestInDB.Id;
             }
-            //_context.SaveChanges();
         }
 
         public IActionResult EditKnot (string id)

@@ -69,27 +69,6 @@ namespace Stringer.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            public string Street { get; set; }
-
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            public string City { get; set; }
-
-            [DataType(DataType.Text)]
-            [MaxLength(50)]
-            public string State { get; set; }
-
-            [DataType(DataType.Text)]
-            [MaxLength(15)]
-            [Display(Name = "Zip Code")]
-            public string ZipCode { get; set; }
-
-            [DataType(DataType.Text)]
-            [MaxLength(35)]
-            public string Country { get; set; }
-
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Role")]
@@ -114,11 +93,6 @@ namespace Stringer.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    Street = Input.Street,
-                    City = Input.City,
-                    State = Input.State,
-                    ZipCode = Input.ZipCode,
-                    Country = Input.Country,
                 };
 
 
