@@ -28,7 +28,6 @@ namespace Stringer.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myBusiness = _context.Locations.SingleOrDefault(l => l.ApplicationUserId == user.Id);
             ViewBag.BusinessId = myBusiness.Id;
-            ViewBag.BusinessName = myBusiness.Name;
             return View(user);
         }
 

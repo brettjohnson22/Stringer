@@ -69,6 +69,14 @@ namespace Stringer.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
+            [DataType(DataType.Text)]
+            [Display(Name = "Age")]
+            public int Age { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Gender")]
+            public string Gender { get; set; }
+
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Role")]

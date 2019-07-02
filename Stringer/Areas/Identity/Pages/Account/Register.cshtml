@@ -2,10 +2,19 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
-        List<SelectListItem> roles = new List<SelectListItem>();
+    List<SelectListItem> roles = new List<SelectListItem>();
     roles.Add(new SelectListItem() { Text = "Member", Value = "Member" });
     roles.Add(new SelectListItem() { Text = "Business", Value = "Business" });
     ViewBag.roles = roles;
+
+    List<SelectListItem> genders = new List<SelectListItem>();
+    genders.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+    genders.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+    genders.Add(new SelectListItem() { Text = "Other", Value = "Other" });
+    genders.Add(new SelectListItem() { Text = "", Value = null });
+    ViewBag.genders = genders;
+
+
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -42,9 +51,19 @@
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Input.Age"></label>
+                <input asp-for="Input.Age" class="form-control" />
+                <span asp-validation-for="Input.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <select class='form-control category' style="color: black" asp-for='Input.Gender' asp-items=ViewBag.genders>Select Gender</select>
+            </div>
+            <div class="form-group">
                 <label>Role</label>
                 <select class='form-control category' style="color: black" asp-for='Input.ApplicationRoleName' asp-items=ViewBag.roles>Select Role</select>
             </div>
+
 
             <button type="submit" class="btn btn-default">Register</button>
         </form>
