@@ -106,20 +106,20 @@ namespace Stringer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CheckIn(string locationid)
+        public async Task<IActionResult> CheckIn(string placeid)
         {
             Knot knot = new Knot();
-            var types = await GetPlaceDetails(locationid);
+            var types = await GetPlaceDetails(placeid);
             knot.ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             knot.Time = DateTime.Now;
             var locationName = types[0];
             types.Remove(types[0]);
-            AssignLocation(knot, locationid, locationName);
+            AssignLocation(knot, placeid, locationName);
             var categories = CategorizeType(types);
             var categoryList = categories.ToList();
             knot.Type = categoryList[0];
             AssignCategories(categories);
-            DetermineNewInterests();
+            await DetermineNewInterests();
             _context.Add(knot);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -231,17 +231,20 @@ namespace Stringer.Controllers
             _context.SaveChanges();
         }
 
-        public async void DetermineNewInterests()
+        public async Task DetermineNewInterests()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myInterests = _context.UserInterests.Where(ui => ui.ApplicationUserId == user.Id);
             var myKnots = _context.Knots.Where(k => k.ApplicationUserId == user.Id);
-            var topInterest = myKnots.GroupBy(k => k.Type).OrderByDescending(g => g.Count()).First().Key;
-            var topInterestInDB = _context.Interests.Where(i => i.Name == topInterest).FirstOrDefault();
-            if(topInterestInDB.Id != user.TopInterest)
+            if (myKnots.Count() > 5)
             {
-                user.SecondInterest = user.TopInterest;
-                user.TopInterest = topInterestInDB.Id;
+                var topInterest = myKnots.GroupBy(k => k.Type).OrderByDescending(g => g.Count()).First().Key;
+                var topInterestInDB = _context.Interests.Where(i => i.Name == topInterest).FirstOrDefault();
+                if (topInterestInDB.Id != user.TopInterest)
+                {
+                    user.SecondInterest = user.TopInterest;
+                    user.TopInterest = topInterestInDB.Id;
+                }
             }
         }
 

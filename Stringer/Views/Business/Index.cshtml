@@ -1,12 +1,31 @@
-﻿@model  Domain.ApplicationUser
+﻿@model IEnumerable<Domain.Knot>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Business Index</h2>
 
-<p>Hello, @Model.FirstName!</p>
+<p>Hello, @ViewBag.Name!</p>
 
-<p>Recent Check-Ins to @Model.BusinessName:</p>
+<p>Recent Check-Ins to @ViewBag.Name:</p>
+
+@foreach (Knot knot in Model)
+{
+    <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
+}
+
+
+
+<h3>
+</h3>
+
+<p>Checkins of Males: @ViewBag.Male</p>
+<p>Checkins of Females: @ViewBag.Female</p>
+<p>Checkins Age Under 20: @ViewBag.AgeOne</p>
+<p>Checkins Age 20-35: @ViewBag.AgeTwo</p>
+<p>Checkins Age 36-49: @ViewBag.AgeThree</p>
+<p>Checkins Age 49-64: @ViewBag.AgeFour</p>
+<p>Checkins 65 and Over: @ViewBag.AgeFive</p>
+

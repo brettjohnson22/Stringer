@@ -61,7 +61,7 @@ namespace Stringer.Controllers
             }
             else if(this.User.IsInRole("Business"))
             {
-                return RedirectToAction("CreateBusiness", "Business");
+                return RedirectToAction("FindBusiness", "Business");
             }
             else
             {

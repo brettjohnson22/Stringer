@@ -8,6 +8,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Stringer.Controllers
@@ -27,8 +28,10 @@ namespace Stringer.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myBusiness = _context.Locations.SingleOrDefault(l => l.ApplicationUserId == user.Id);
+            var myKnots = _context.Knots.Include(k => k.ApplicationUser).Where(k => k.LocationId == myBusiness.Id);
             ViewBag.BusinessId = myBusiness.Id;
-            return View(user);
+            ViewBag.MyName = myBusiness.Name;
+            return View(myKnots);
         }
 
         // GET: Business/Details/5
@@ -38,28 +41,28 @@ namespace Stringer.Controllers
         }
 
         // GET: Business/Create
-        public async Task<IActionResult> CreateBusiness()
-        {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            return View(user);
-        }
+        //public async Task<IActionResult> CreateBusiness()
+        //{
+        //    var user = await _userManager.GetUserAsync(HttpContext.User);
+        //    return View(user);
+        //}
 
-        // POST: Business/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateBusiness(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        //// POST: Business/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateBusiness(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: Business/Edit/5
         public ActionResult Edit(int id)
@@ -148,46 +151,152 @@ namespace Stringer.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-    
-    public Location CheckExistingBuisiness(string placeId)
-    {
-        var existingBusiness = _context.Locations.SingleOrDefault(l => l.Id == placeId);
-        if (existingBusiness != null)
-        {
-            return existingBusiness;
-        }
-        else
-        {
-            return null;
-        }
-    }
 
-    public async Task<List<string>> GetBusinessDetails(string placeId)
-    {
-        string result;
-        using (var client = new HttpClient())
+        public Location CheckExistingBuisiness(string placeId)
         {
-            try
+            var existingBusiness = _context.Locations.SingleOrDefault(l => l.Id == placeId);
+            if (existingBusiness != null)
             {
-                result = await client.GetStringAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&fields=name,type&key=" + APIKey.SecretKey);
-                dynamic jObj = JsonConvert.DeserializeObject(result);
-                var name = jObj.result.name.ToString();
-                var types = jObj.result.types;
-                int count = types.Count;
-                var typeList = new List<string>();
-                typeList.Add(name);
-                for (int i = 0; i < count; i++)
-                {
-                    var data = types[i].ToString();
-                    typeList.Add(data);
-                }
-                return typeList;
+                return existingBusiness;
             }
-            catch (Exception ex)
+            else
             {
                 return null;
             }
         }
+
+        public async Task<List<string>> GetBusinessDetails(string placeId)
+        {
+            string result;
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    result = await client.GetStringAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&fields=name,type&key=" + APIKey.SecretKey);
+                    dynamic jObj = JsonConvert.DeserializeObject(result);
+                    var name = jObj.result.name.ToString();
+                    var types = jObj.result.types;
+                    int count = types.Count;
+                    var typeList = new List<string>();
+                    typeList.Add(name);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var data = types[i].ToString();
+                        typeList.Add(data);
+                    }
+                    return typeList;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+        public ActionResult FindBusiness()
+        {
+            return View();
+        }
+
+        public void AnalyzeData(IQueryable<Knot> myKnots)
+        {
+            int maleCounter = 0;
+            int femaleCounter = 0;
+            int ageOneCounter = 0;
+            int ageTwoCounter = 0;
+            int ageThreeCounter = 0;
+            int ageFourCounter = 0;
+            int ageFiveCounter = 0;
+            int foodCounter = 0;
+            int nightlifeCounter = 0;
+            int outdoorsCounter = 0;
+            int activitesCounter = 0;
+            int cultureCounter = 0;
+            int animalsCounter = 0;
+            int fashionCounter = 0;
+            int wellnessCounter = 0;
+
+            foreach (Knot knot in myKnots)
+            {
+                if (knot.ApplicationUser.Gender == "male")
+                {
+                    maleCounter++;
+                }
+                if (knot.ApplicationUser.Gender == "female")
+                {
+                    femaleCounter++;
+                }
+                if (knot.ApplicationUser.Age <= 20)
+                {
+                    ageOneCounter++;
+                }
+                if (knot.ApplicationUser.Age > 20 && knot.ApplicationUser.Age <= 35)
+                {
+                    ageTwoCounter++;
+                }
+                if (knot.ApplicationUser.Age > 35 && knot.ApplicationUser.Age <= 49)
+                {
+                    ageThreeCounter++;
+                }
+                if (knot.ApplicationUser.Age > 49 && knot.ApplicationUser.Age <= 64)
+                {
+                    ageFourCounter++;
+                }
+                if (knot.ApplicationUser.Age > 64)
+                {
+                    ageFiveCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 1 || knot.ApplicationUser.SecondInterest == 1)
+                {
+                    foodCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 2 || knot.ApplicationUser.SecondInterest == 2)
+                {
+                    nightlifeCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 3 || knot.ApplicationUser.SecondInterest == 3)
+                {
+                    activitesCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 4 || knot.ApplicationUser.SecondInterest == 4)
+                {
+                    animalsCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 5 || knot.ApplicationUser.SecondInterest == 5)
+                {
+                    outdoorsCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 6 || knot.ApplicationUser.SecondInterest == 6)
+                {
+                    cultureCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 7 || knot.ApplicationUser.SecondInterest == 7)
+                {
+                    fashionCounter++;
+                }
+                if (knot.ApplicationUser.TopInterest == 8 || knot.ApplicationUser.SecondInterest == 8)
+                {
+                    wellnessCounter++;
+                }
+
+            }
+            ViewBag.Male = maleCounter;
+            ViewBag.Female = femaleCounter;
+            ViewBag.AgeOne = ageOneCounter;
+            ViewBag.AgeTwo = ageTwoCounter;
+            ViewBag.AgeThree = ageThreeCounter;
+            ViewBag.AgeFour = ageFourCounter;
+            ViewBag.AgeFive = ageFiveCounter;
+        }
+
+        public void AnalyzeInterests(List<int> customerInterests)
+        {
+            foreach(int interest in customerInterests)
+            {
+                if(interest == 1)
+                {
+
+                }
+            }
+        }
     }
-}
 }

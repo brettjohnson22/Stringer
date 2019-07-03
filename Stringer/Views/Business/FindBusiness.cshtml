@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-    <h3>Where are you? (Search for a location)</h3>
+    <h3>Find your business -- We'll take care of the rest!</h3>
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map"></div>
 
@@ -85,7 +85,7 @@
 
                     marker.addListener('click', function (event) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: '<div><p></p><a id ="popButton" href="/Business/ClaimBusiness?locationid=' + place.place_id + '">Claim ' + place.name + ' as your business?</button></div>'
+                            content: '<div><p></p><a id ="popButton" href="/Business/ClaimBusiness?placeid=' + place.place_id + '">Claim ' + place.name + ' as your business?</button></div>'
                         });
                         infowindow.setPosition(event.latLng);
                         infowindow.open(map);

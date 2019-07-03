@@ -84,7 +84,7 @@
 
                     marker.addListener('click', function (event) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: '<div><p></p><a id ="popButton" href="/Members/CheckIn?locationid=' + place.place_id + '">Check in at ' + place.name + '?</button></div>'
+                            content: '<div><p></p><a id ="popButton" href="/Members/CheckIn?placeid=' + place.place_id + '">Check in at ' + place.name + '?</button></div>'
                         });
                         infowindow.setPosition(event.latLng);
                         infowindow.open(map);
