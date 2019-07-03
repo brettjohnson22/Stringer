@@ -9,17 +9,21 @@
 
 <p>Hello, @ViewBag.Name!</p>
 
-<p>Recent Check-Ins to @ViewBag.Name:</p>
+<p>Last 20 Check-Ins to @ViewBag.Name:</p>
 
-@foreach (Knot knot in Model)
-{
-    <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
+@{
+    int counter = 20;
+    foreach (Knot knot in Model)
+    {
+        if (counter > 0)
+        {
+            <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
+        }
+        counter--;
+    }
 }
 
-
-
-<h3>
-</h3>
+<h3>Demographics Breakdown</h3>
 
 <p>Checkins of Males: @ViewBag.Male</p>
 <p>Checkins of Females: @ViewBag.Female</p>
@@ -29,3 +33,39 @@
 <p>Checkins Age 49-64: @ViewBag.AgeFour</p>
 <p>Checkins 65 and Over: @ViewBag.AgeFive</p>
 
+Other Leading Interests of your Visitors:
+
+<ol>
+    @if (ViewBag.Food > 0)
+    {
+        <li data-position="@ViewBag.Food">Food</li>
+    }
+    @if (ViewBag.Nightlife > 0)
+    {
+        <li data-position="@ViewBag.Nightlife">Drinking/NightLife</li>
+    }
+    @if (ViewBag.Activities > 0)
+    {
+        <li data-position="@ViewBag.Activities">Activities</li>
+    }
+    @if (ViewBag.Animals > 0)
+    {
+        <li data-position="@ViewBag.Animals">Animals</li>
+    }
+    @if (ViewBag.Outdoors > 0)
+    {
+        <li data-position="@ViewBag.Outdoors">Outdoors</li>
+    }
+    @if (ViewBag.Culture > 0)
+    {
+        <li data-position="@ViewBag.Culture">Culture</li>
+    }
+    @if (ViewBag.Fashion > 0)
+    {
+        <li data-position="@ViewBag.Fashion">Fashion</li>
+    }
+    @if (ViewBag.Wellness > 0)
+    {
+        <li data-position="@ViewBag.Wellness">Wellness</li>
+    }
+    </ol>

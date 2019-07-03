@@ -31,6 +31,7 @@ namespace Stringer.Controllers
             var myKnots = _context.Knots.Include(k => k.ApplicationUser).Where(k => k.LocationId == myBusiness.Id);
             ViewBag.BusinessId = myBusiness.Id;
             ViewBag.MyName = myBusiness.Name;
+            AnalyzeData(myKnots);
             return View(myKnots);
         }
 
@@ -208,10 +209,10 @@ namespace Stringer.Controllers
             int ageFiveCounter = 0;
             int foodCounter = 0;
             int nightlifeCounter = 0;
-            int outdoorsCounter = 0;
-            int activitesCounter = 0;
-            int cultureCounter = 0;
+            int activitiesCounter = 0;
             int animalsCounter = 0;
+            int outdoorsCounter = 0;
+            int cultureCounter = 0;
             int fashionCounter = 0;
             int wellnessCounter = 0;
 
@@ -255,7 +256,7 @@ namespace Stringer.Controllers
                 }
                 if (knot.ApplicationUser.TopInterest == 3 || knot.ApplicationUser.SecondInterest == 3)
                 {
-                    activitesCounter++;
+                    activitiesCounter++;
                 }
                 if (knot.ApplicationUser.TopInterest == 4 || knot.ApplicationUser.SecondInterest == 4)
                 {
@@ -277,7 +278,6 @@ namespace Stringer.Controllers
                 {
                     wellnessCounter++;
                 }
-
             }
             ViewBag.Male = maleCounter;
             ViewBag.Female = femaleCounter;
@@ -286,17 +286,33 @@ namespace Stringer.Controllers
             ViewBag.AgeThree = ageThreeCounter;
             ViewBag.AgeFour = ageFourCounter;
             ViewBag.AgeFive = ageFiveCounter;
+
+            //SortedDictionary<int, List<string>> sortedInterests = new SortedDictionary<int, List<string>>();
+            //int[] visitorInterests = new int[8];
+
+            //visitorInterests[0] = foodCounter;
+            //visitorInterests[1] = nightlifeCounter;
+            //visitorInterests[2] = activitiesCounter;
+            //visitorInterests[4] = animalsCounter;
+            //visitorInterests[4] = outdoorsCounter;
+            //visitorInterests[5] = cultureCounter;
+            //visitorInterests[6] = fashionCounter;
+            //visitorInterests[7] = wellnessCounter;
+
+            //return visitorInterests;
+            ViewBag.Food = foodCounter;
+            ViewBag.Night = nightlifeCounter;
+            ViewBag.Activities = activitiesCounter;
+            ViewBag.Animals = animalsCounter;
+            ViewBag.Outdoors = outdoorsCounter;
+            ViewBag.Culture = cultureCounter;
+            ViewBag.Fashion = fashionCounter;
+            ViewBag.Wellness = wellnessCounter;
         }
 
-        public void AnalyzeInterests(List<int> customerInterests)
+        public void AnalyzeInterests(int[] customerInterests)
         {
-            foreach(int interest in customerInterests)
-            {
-                if(interest == 1)
-                {
-
-                }
-            }
+            //customerInterests
         }
     }
 }
