@@ -33,39 +33,39 @@
 <p>Checkins Age 49-64: @ViewBag.AgeFour</p>
 <p>Checkins 65 and Over: @ViewBag.AgeFive</p>
 
-Other Leading Interests of your Visitors:
+<h3>Other Leading Interests of your Visitors:</h3>
 
 <ol>
     @if (ViewBag.Food > 0)
     {
-        <li data-position="@ViewBag.Food">Food</li>
+        <li data-position="@ViewBag.Food">Food (@ViewBag.Food Stringers interested)</li>
     }
     @if (ViewBag.Nightlife > 0)
     {
-        <li data-position="@ViewBag.Nightlife">Drinking/NightLife</li>
+        <li data-position="@ViewBag.Nightlife">Drinking/NightLife (@ViewBag.Nightlife Stringers interested)</li>
     }
     @if (ViewBag.Activities > 0)
     {
-        <li data-position="@ViewBag.Activities">Activities</li>
+        <li data-position="@ViewBag.Activities">Activities (@ViewBag.Food Stringers interested)</li>
     }
     @if (ViewBag.Animals > 0)
     {
-        <li data-position="@ViewBag.Animals">Animals</li>
+        <li data-position="@ViewBag.Animals">Animals (@ViewBag.Animals Stringers interested)</li>
     }
     @if (ViewBag.Outdoors > 0)
     {
-        <li data-position="@ViewBag.Outdoors">Outdoors</li>
+        <li data-position="@ViewBag.Outdoors">Outdoors (@ViewBag.Outdoors Stringers interested)</li>
     }
     @if (ViewBag.Culture > 0)
     {
-        <li data-position="@ViewBag.Culture">Culture</li>
+        <li data-position="@ViewBag.Culture">Culture (@ViewBag.Culture Stringers interested)</li>
     }
     @if (ViewBag.Fashion > 0)
     {
-        <li data-position="@ViewBag.Fashion">Fashion</li>
+        <li data-position="@ViewBag.Fashion">Fashion (@ViewBag.Fashion Stringers interested)</li>
     }
     @if (ViewBag.Wellness > 0)
     {
-        <li data-position="@ViewBag.Wellness">Wellness</li>
+        <li data-position="@ViewBag.Wellness">Wellness (@ViewBag.Wellness Stringers interested)</li>
     }
-    </ol>
+</ol>

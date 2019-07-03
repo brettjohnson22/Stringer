@@ -301,7 +301,7 @@ namespace Stringer.Controllers
 
             //return visitorInterests;
             ViewBag.Food = foodCounter;
-            ViewBag.Night = nightlifeCounter;
+            ViewBag.Nightlife = nightlifeCounter;
             ViewBag.Activities = activitiesCounter;
             ViewBag.Animals = animalsCounter;
             ViewBag.Outdoors = outdoorsCounter;

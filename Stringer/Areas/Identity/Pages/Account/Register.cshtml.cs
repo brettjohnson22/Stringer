@@ -101,6 +101,8 @@ namespace Stringer.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
+                    Age = Input.Age,
+                    Gender = Input.Gender
                 };
 
 
