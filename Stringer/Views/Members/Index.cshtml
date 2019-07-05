@@ -3,19 +3,18 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h1 class="text-center">s t r i n g e r</h1>
-@{
-    var topinterest = ViewBag.TopInterest;
+        var topinterest = ViewBag.TopInterest;
     var secondinterest = ViewBag.SecondInterest;
 }
-<p class="text-center">
-    <a asp-action="CreateKnot">Tie a New Knot</a><br />
-    Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
+<br />
+<p class="text-right">
+    sort by: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">type</a>
 </p>
+<h1 class="text-center">s t r i n g e r
+    <a asp-action="CreateKnot"><img id="fingerKnot" src="~/images/finger.jpg" /></a></h1>
 <div id="topCategory">
-    <h3 class="text-center">@topinterest</h3>
+    <h3>@topinterest.ToUpper()</h3>
+    <br />
     <table class="table">
         <thead>
             <tr>
@@ -72,8 +71,10 @@
         </tbody>
     </table>
 </div>
+<br />
 <div id="bottomCategory">
-    <h3 class="text-center">@secondinterest</h3>
+    <h3>@secondinterest.ToUpper()</h3>
+    <br />
     <table class="table">
         <thead>
             <tr>
@@ -130,8 +131,10 @@
         </tbody>
     </table>
 </div>
+<br />
 <div id="miscCategory">
-    <h3 class="text-center">other</h3>
+    <h3>OTHER</h3>
+    <br />
     <table class="table">
         <thead>
             <tr>

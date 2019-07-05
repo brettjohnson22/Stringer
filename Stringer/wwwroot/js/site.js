@@ -24,3 +24,15 @@ $(function () {
         return ($(b).data('position')) > ($(a).data('position')) ? 1 : -1;
     }
 });
+
+$(function () {
+    $("#fingerKnot")
+        .mouseover(function () {
+            //var src = $(this).attr("src").match(/[^\.]+/) + "blueknot.jpg";
+            $(this).attr("src", "/images/blueknot.jpg");
+        })
+        .mouseout(function () {
+            //var src = $(this).attr("src").replace("blueknot.jpg", ".finger.jpg");
+            $(this).attr("src", "/images/finger.jpg");
+        });
+});
