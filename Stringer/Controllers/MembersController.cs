@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace Stringer.Controllers
 {
@@ -122,6 +123,7 @@ namespace Stringer.Controllers
             _context.Add(knot);
             _context.SaveChanges();
             await DetermineNewInterests();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -250,24 +252,48 @@ namespace Stringer.Controllers
 
         public IActionResult EditKnot (string id)
         {
-            var knot = _context.Knots.Single(k => k.Id == id);
+            var knot = _context.Knots.Include(k => k.Location).Single(k => k.Id == id);
             return View(knot);
         }
 
         [HttpPost]
-        public IActionResult EditKnot(Knot knot)
+        public async Task<IActionResult> EditKnot(Knot knot)
         {
             var knotInDb = _context.Knots.Single(k => k.Id == knot.Id);
             knotInDb.Type = knot.Type;
             knotInDb.Photo = knot.Photo;
             knotInDb.Comments = knot.Comments;
             _context.SaveChanges();
+            await DetermineNewInterests();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DeleteKnot (string id)
+        {
+            var knot = _context.Knots.Include(k => k.Location).Single(k => k.Id == id);
+            return View(knot);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteKnot(Knot knot)
+        {
+            try
+            {
+                _context.Remove(knot);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         public IActionResult AddPhoto(string id)
         {
-            var knot = _context.Knots.Single(k => k.Id == id);
+            var knot = _context.Knots.Include(k => k.Location).Single(k => k.Id == id);
             return View(knot);
         }
 

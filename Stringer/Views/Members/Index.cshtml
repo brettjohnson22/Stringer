@@ -14,25 +14,24 @@
     <a asp-action="CreateKnot"><img id="fingerKnot" src="~/images/finger.jpg" /></a></h1>
 <div id="topCategory">
     <h3>@topinterest.ToUpper()</h3>
-    <br />
     <table class="table">
-        <thead>
+        @*<thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Photo)
+                   
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Location.Name)
+                    Location
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Comments)
+                   
                 </th>
                 <th></th>
             </tr>
-        </thead>
+        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -63,7 +62,7 @@
                         </td>
                         <td>
                             <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="DeleteKnot" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }
@@ -74,25 +73,24 @@
 <br />
 <div id="bottomCategory">
     <h3>@secondinterest.ToUpper()</h3>
-    <br />
     <table class="table">
-        <thead>
+        @*<thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Photo)
+
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Location.Name)
+                    Location
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Time)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Comments)
+                   
                 </th>
                 <th></th>
             </tr>
-        </thead>
+        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -123,7 +121,7 @@
                         </td>
                         <td>
                             <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="DeleteKnot" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }
@@ -134,29 +132,27 @@
 <br />
 <div id="miscCategory">
     <h3>OTHER</h3>
-    <br />
     <table class="table">
-        <thead>
+        @*<thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Photo)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Location.Name)
+                    Location
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Time)
                 </th>
                 @*<th>
                     @Html.DisplayNameFor(model => model.Type)
-                </th>*@
+                </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Comments)
+                    
                 </th>
 
                 <th></th>
             </tr>
-        </thead>
+        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -191,7 +187,7 @@
                         </td>
                         <td>
                             <a asp-action="EditKnot" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <a asp-action="DeleteKnot" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }
