@@ -238,7 +238,7 @@ namespace Stringer.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myInterests = _context.UserInterests.Where(ui => ui.ApplicationUserId == user.Id);
             var myKnots = _context.Knots.Where(k => k.ApplicationUserId == user.Id);
-            if (myKnots.Count() > 5)
+            if (myKnots.Count() > 3)
             {
                 var topInterest = myKnots.GroupBy(k => k.Type).OrderByDescending(g => g.Count()).First().Key;
                 var topInterestInDB = _context.Interests.Where(i => i.Name == topInterest).FirstOrDefault();

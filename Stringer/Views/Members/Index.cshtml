@@ -3,15 +3,17 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-        var topinterest = ViewBag.TopInterest;
+    var topinterest = ViewBag.TopInterest;
     var secondinterest = ViewBag.SecondInterest;
 }
 <br />
 <p class="text-right">
-    sort by: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">type</a>
+    sort by: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">type</a><br /><a asp-action="CreateProfile">change interests</a>
 </p>
-<h1 class="text-center">s t r i n g e r
-    <a asp-action="CreateKnot"><img id="fingerKnot" src="~/images/finger.jpg" /></a></h1>
+<h1 class="text-center">
+    s t r i n g e r
+    <a asp-action="CreateKnot"><img id="fingerKnot" src="~/images/finger.jpg" /></a>
+</h1>
 <div id="topCategory">
     <h3>@topinterest.ToUpper()</h3>
     <table class="table">

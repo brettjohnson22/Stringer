@@ -45,52 +45,6 @@ namespace Stringer.Controllers
             return View();
         }
 
-        // GET: Business/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Business/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Business/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Business/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         public async Task<IActionResult> ClaimBusiness(string placeId)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -283,11 +237,6 @@ namespace Stringer.Controllers
             ViewBag.Culture = cultureCounter;
             ViewBag.Fashion = fashionCounter;
             ViewBag.Wellness = wellnessCounter;
-        }
-
-        public void AnalyzeInterests(int[] customerInterests)
-        {
-            //customerInterests
         }
     }
 }
