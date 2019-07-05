@@ -15,23 +15,6 @@
 <div id="topCategory">
     <h3>@topinterest.ToUpper()</h3>
     <table class="table">
-        @*<thead>
-            <tr>
-                <th>
-                   
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Time)
-                </th>
-                <th>
-                   
-                </th>
-                <th></th>
-            </tr>
-        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -74,23 +57,6 @@
 <div id="bottomCategory">
     <h3>@secondinterest.ToUpper()</h3>
     <table class="table">
-        @*<thead>
-            <tr>
-                <th>
-
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Time)
-                </th>
-                <th>
-                   
-                </th>
-                <th></th>
-            </tr>
-        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -133,26 +99,6 @@
 <div id="miscCategory">
     <h3>OTHER</h3>
     <table class="table">
-        @*<thead>
-            <tr>
-                <th>
-                </th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Time)
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
-                    
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>*@
         <tbody>
             @foreach (var item in Model)
             {
@@ -179,9 +125,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Time)
                         </td>
-                        @*<td>
-                            @Html.DisplayFor(modelItem => item.Type)
-                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
