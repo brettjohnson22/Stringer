@@ -28,11 +28,15 @@ namespace Stringer.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var myBusiness = _context.Locations.SingleOrDefault(l => l.ApplicationUserId == user.Id);
-            var myKnots = _context.Knots.Include(k => k.ApplicationUser).Where(k => k.LocationId == myBusiness.Id);
-            ViewBag.BusinessId = myBusiness.Id;
-            ViewBag.Name = myBusiness.Name;
-            AnalyzeData(myKnots);
-            return View(myKnots);
+            if (myBusiness != null)
+            {
+                var myKnots = _context.Knots.Include(k => k.ApplicationUser).Where(k => k.LocationId == myBusiness.Id);
+                ViewBag.BusinessId = myBusiness.Id;
+                ViewBag.Name = myBusiness.Name;
+                AnalyzeData(myKnots);
+                return View(myKnots);
+            }
+            else return RedirectToAction(nameof(FindBusiness));
         }
 
         // GET: Business/Details/5
@@ -106,12 +110,16 @@ namespace Stringer.Controllers
                 }
             }
             var existingBusiness = CheckExistingBuisiness(placeId);
-            if (existingBusiness != null)
+            if (existingBusiness != null && existingBusiness.IsClaimed == false)
             {
                 existingBusiness.ApplicationUserId = user.Id;
                 existingBusiness.IsClaimed = true;
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
+            }
+            else if (existingBusiness != null && existingBusiness.IsClaimed == true)
+            {
+                return RedirectToAction(nameof(BusinessClaimed));
             }
             else
             {
@@ -127,6 +135,11 @@ namespace Stringer.Controllers
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public IActionResult BusinessClaimed()
+        {
+            return View();
         }
 
         public Location CheckExistingBuisiness(string placeId)

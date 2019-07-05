@@ -23,11 +23,9 @@ $(function () {
 $(function () {
     $("#fingerKnot")
         .mouseover(function () {
-            //var src = $(this).attr("src").match(/[^\.]+/) + "blueknot.jpg";
             $(this).attr("src", "/images/bluefinger.jpg");
         })
         .mouseout(function () {
-            //var src = $(this).attr("src").replace("blueknot.jpg", ".finger.jpg");
             $(this).attr("src", "/images/finger.jpg");
         });
 });
