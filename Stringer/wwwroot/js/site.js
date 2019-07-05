@@ -7,16 +7,11 @@ $(document).ready(function () {
     $('input[type=checkbox]').on('change', function (e) {
         if ($('input[type=checkbox]:checked').length > 2) {
             $(this).prop('checked', false);
-            this.checked=false;
+            this.checked = false;
         }
     })
 });
 
-//$(document).ready(function () {
-//    $(function () {
-//        $('body').removeClass('fade-out');
-//    });
-//});
 
 $(function () {
     $(".listitems li").sort(sort_li).appendTo('.listitems');
@@ -35,4 +30,18 @@ $(function () {
             //var src = $(this).attr("src").replace("blueknot.jpg", ".finger.jpg");
             $(this).attr("src", "/images/finger.jpg");
         });
+});
+
+//$(function () {
+//    $("#firstFade").load(function () {
+//        $(this).fadeIn();
+//    });
+//});
+
+$(function () {
+    $("#firstFade").delay(1000).fadeIn(2000);
+});
+
+$(function () {
+    $("#secondFade").delay(3000).fadeIn("slow");
 });
