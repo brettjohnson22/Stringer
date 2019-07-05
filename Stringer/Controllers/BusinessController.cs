@@ -30,7 +30,7 @@ namespace Stringer.Controllers
             var myBusiness = _context.Locations.SingleOrDefault(l => l.ApplicationUserId == user.Id);
             var myKnots = _context.Knots.Include(k => k.ApplicationUser).Where(k => k.LocationId == myBusiness.Id);
             ViewBag.BusinessId = myBusiness.Id;
-            ViewBag.MyName = myBusiness.Name;
+            ViewBag.Name = myBusiness.Name;
             AnalyzeData(myKnots);
             return View(myKnots);
         }

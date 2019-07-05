@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Stringer</h1>
+<h1 class="text-center">s t r i n g e r</h1>
 @{
     var topinterest = ViewBag.TopInterest;
     var secondinterest = ViewBag.SecondInterest;
@@ -15,7 +15,7 @@
     Sort By: <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TimeSortParm"]">Time</a> | <a asp-action="Index" asp-route-sortOrder="@ViewData["TypeSortParm"]">Type</a>
 </p>
 <div id="topCategory">
-    <h3 class="text-center">@topinterest.ToUpper()</h3>
+    <h3 class="text-center">@topinterest</h3>
     <table class="table">
         <thead>
             <tr>
@@ -73,7 +73,7 @@
     </table>
 </div>
 <div id="bottomCategory">
-    <h3 class="text-center">@secondinterest.ToUpper()</h3>
+    <h3 class="text-center">@secondinterest</h3>
     <table class="table">
         <thead>
             <tr>
@@ -131,7 +131,7 @@
     </table>
 </div>
 <div id="miscCategory">
-    <h3 class="text-center">OTHER</h3>
+    <h3 class="text-center">other</h3>
     <table class="table">
         <thead>
             <tr>
@@ -144,9 +144,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Time)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Type)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
                 </th>
@@ -180,9 +180,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Time)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Type)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Comments)
                         </td>
