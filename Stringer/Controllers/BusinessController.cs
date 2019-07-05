@@ -41,30 +41,6 @@ namespace Stringer.Controllers
             return View();
         }
 
-        // GET: Business/Create
-        //public async Task<IActionResult> CreateBusiness()
-        //{
-        //    var user = await _userManager.GetUserAsync(HttpContext.User);
-        //    return View(user);
-        //}
-
-        //// POST: Business/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult CreateBusiness(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add insert logic here
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
-
         // GET: Business/Edit/5
         public ActionResult Edit(int id)
         {
@@ -218,11 +194,11 @@ namespace Stringer.Controllers
 
             foreach (Knot knot in myKnots)
             {
-                if (knot.ApplicationUser.Gender == "male")
+                if (knot.ApplicationUser.Gender == "Male")
                 {
                     maleCounter++;
                 }
-                if (knot.ApplicationUser.Gender == "female")
+                if (knot.ApplicationUser.Gender == "Female")
                 {
                     femaleCounter++;
                 }
@@ -286,20 +262,6 @@ namespace Stringer.Controllers
             ViewBag.AgeThree = ageThreeCounter;
             ViewBag.AgeFour = ageFourCounter;
             ViewBag.AgeFive = ageFiveCounter;
-
-            //SortedDictionary<int, List<string>> sortedInterests = new SortedDictionary<int, List<string>>();
-            //int[] visitorInterests = new int[8];
-
-            //visitorInterests[0] = foodCounter;
-            //visitorInterests[1] = nightlifeCounter;
-            //visitorInterests[2] = activitiesCounter;
-            //visitorInterests[4] = animalsCounter;
-            //visitorInterests[4] = outdoorsCounter;
-            //visitorInterests[5] = cultureCounter;
-            //visitorInterests[6] = fashionCounter;
-            //visitorInterests[7] = wellnessCounter;
-
-            //return visitorInterests;
             ViewBag.Food = foodCounter;
             ViewBag.Nightlife = nightlifeCounter;
             ViewBag.Activities = activitiesCounter;

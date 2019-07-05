@@ -119,9 +119,9 @@ namespace Stringer.Controllers
             var categoryList = categories.ToList();
             knot.Type = categoryList[0];
             AssignCategories(categories);
-            await DetermineNewInterests();
             _context.Add(knot);
             _context.SaveChanges();
+            await DetermineNewInterests();
             return RedirectToAction(nameof(Index));
         }
 
