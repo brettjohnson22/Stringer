@@ -7,7 +7,7 @@
 
 <h2>@ViewBag.Name</h2>
 
-<h3>Last 20 Check-Ins:</h3>
+<h3>Recent Check-Ins:</h3>
 
 @{
     int counter = 20;
@@ -21,17 +21,19 @@
     }
 }
 
-<h3>Demographics Breakdown</h3>
-<table class="demographTable">
-    <tr><td><p>Total Visitors:</td><td><p> @Model.Count()</p></td></tr>
-    <tr><td><p>Female Visitors:</p></td><td><p>@ViewBag.Female</p></td></tr>
-    <tr><td><p>Male Visitors:</p></td><td><p>@ViewBag.Male</p></td></tr>
-    <tr><td><p>Visitors Under 20:</p></td><td><p>@ViewBag.AgeOne</p></td></tr>
-    <tr><td><p>Visitors Age 20-35:</p></td><td><p>@ViewBag.AgeTwo</p></td></tr>
-    <tr><td><p>Visitors Age 36-49:</p></td><td><p>@ViewBag.AgeThree</p></td></tr>
-    <tr><td><p>Visitors Age 49-64:</p></td><td><p>@ViewBag.AgeFour</p></td></tr>
-    <tr><td><p>Visitors 65 and Over:</p></td><td><p>@ViewBag.AgeFive</p></td></tr>
-</table>
+<div>
+    <h3>Demographics Breakdown</h3>
+    <table class="demographTable">
+        <tr class="demographTable"><td class="demographTable"><p>Total Visitors:</p></td><td class="demographTable"><p> @Model.Count()</p></td></trc>
+        <tr class="demographTable"><td class="demographTable"><p>Female Visitors:</p></td><td class="demographTable"><p>@ViewBag.Female</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"><p>Male Visitors:</p></td><td class="demographTable"><p>@ViewBag.Male</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"><p>Visitors Under 20:</p></td><td class="demographTable"><p>@ViewBag.AgeOne</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"><p>Visitors Age 20-35:</p></td><td class="demographTable"><p>@ViewBag.AgeTwo</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"><p>Visitors Age 36-49:</p></td><td class="demographTable"><p>@ViewBag.AgeThree</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"<p>Visitors Age 49-64:</p></td><td class="demographTable"><p>@ViewBag.AgeFour</p></td></tr>
+        <tr class="demographTable"><td class="demographTable"><p>Visitors 65 and Over:</p></td><td class="demographTable"><p>@ViewBag.AgeFive</p></td></tr>
+    </table>
+</div>
 
 <h3>Other Leading Interests of your Visitors:</h3>
 
