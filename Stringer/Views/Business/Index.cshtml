@@ -13,7 +13,7 @@
     int counter = 20;
     foreach (Knot knot in Model)
     {
-        if (counter > 0)
+        if (counter > 0 && knot.ApplicationUser.Age > 0)
         {
             <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
         }
