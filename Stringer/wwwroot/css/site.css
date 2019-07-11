@@ -150,5 +150,5 @@ table.demographTable, th.demographTable, td.demographTable, tr.demographTable {
 
 .blueBack {
     background-color: rgba(204, 255, 255, .75);
-    border-style: groove;
+    /*border-style: groove;*/
 }
