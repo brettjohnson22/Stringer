@@ -118,9 +118,9 @@ body {
     table-layout: fixed;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+/*p, h1, h2, h3, h4, h5, h6 {
     font-family: Arial, Helvetica, sans-serif
-}
+}*/
 
 
 
@@ -130,6 +130,25 @@ table.demographTable, th.demographTable, td.demographTable, tr.demographTable {
     padding: 10px 10px 5px 10px;
 }
 
-table.demographTable tr:nth-child(odd) {
-    background-color: #ccffff;
+    table.demographTable tr:nth-child(odd) {
+        background-color: rgba(204, 255, 255, .75);
+    }
+
+.bigBox {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: auto;
+    padding: 10px 15px 10px;
+}
+
+.littleBox {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: auto;
+    padding: 5px;
+}
+
+.blueBack {
+    background-color: rgba(204, 255, 255, .75);
+    border-style: groove;
 }

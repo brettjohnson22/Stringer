@@ -5,69 +5,84 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Name</h2>
+<h2 class="text-center">@ViewBag.Name</h2>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <h3>Recent Check-Ins:</h3>
+            <div class="well bigBox blueBack">
+            @{
+                int counter = 20;
+                foreach (Knot knot in Model)
+                {
+                    if (counter > 0 )
+                    {
+                        <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
+                    }
+                    counter--;
+                }
+            }
+                </div>
+            <br />
 
-<h3>Recent Check-Ins:</h3>
+        </div>
+        <div class="col-md-5">
+            <h3>Other Leading Interests of your Visitors:</h3>
 
-@{
-    int counter = 20;
-    foreach (Knot knot in Model)
-    {
-        if (counter > 0 && knot.ApplicationUser.Age > 0)
-        {
-            <p> A @knot.ApplicationUser.Age year-old @knot.ApplicationUser.Gender made a knot at @knot.Time.</p>
-        }
-        counter--;
-    }
-}
-
-<div>
-    <h3>Demographics Breakdown</h3>
-    <table class="demographTable">
-        <tr class="demographTable"><td class="demographTable"><p>Total Visitors:</p></td><td class="demographTable"><p> @Model.Count()</p></td></trc>
-        <tr class="demographTable"><td class="demographTable"><p>Female Visitors:</p></td><td class="demographTable"><p>@ViewBag.Female</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"><p>Male Visitors:</p></td><td class="demographTable"><p>@ViewBag.Male</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"><p>Visitors Under 20:</p></td><td class="demographTable"><p>@ViewBag.AgeOne</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"><p>Visitors Age 20-35:</p></td><td class="demographTable"><p>@ViewBag.AgeTwo</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"><p>Visitors Age 36-49:</p></td><td class="demographTable"><p>@ViewBag.AgeThree</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"<p>Visitors Age 49-64:</p></td><td class="demographTable"><p>@ViewBag.AgeFour</p></td></tr>
-        <tr class="demographTable"><td class="demographTable"><p>Visitors 65 and Over:</p></td><td class="demographTable"><p>@ViewBag.AgeFive</p></td></tr>
-    </table>
+            <ol>
+                @if (ViewBag.Food > 0)
+                {
+                    <li data-position="@ViewBag.Food">Food (@ViewBag.Food Stringers interested)</li>
+                }
+                @if (ViewBag.Nightlife > 0)
+                {
+                    <li data-position="@ViewBag.Nightlife">Drinking/NightLife (@ViewBag.Nightlife Stringers interested)</li>
+                }
+                @if (ViewBag.Activities > 0)
+                {
+                    <li data-position="@ViewBag.Activities">Activities (@ViewBag.Food Stringers interested)</li>
+                }
+                @if (ViewBag.Animals > 0)
+                {
+                    <li data-position="@ViewBag.Animals">Animals (@ViewBag.Animals Stringers interested)</li>
+                }
+                @if (ViewBag.Outdoors > 0)
+                {
+                    <li data-position="@ViewBag.Outdoors">Outdoors (@ViewBag.Outdoors Stringers interested)</li>
+                }
+                @if (ViewBag.Culture > 0)
+                {
+                    <li data-position="@ViewBag.Culture">Culture (@ViewBag.Culture Stringers interested)</li>
+                }
+                @if (ViewBag.Fashion > 0)
+                {
+                    <li data-position="@ViewBag.Fashion">Fashion (@ViewBag.Fashion Stringers interested)</li>
+                }
+                @if (ViewBag.Wellness > 0)
+                {
+                    <li data-position="@ViewBag.Wellness">Wellness (@ViewBag.Wellness Stringers interested)</li>
+                }
+            </ol>
+            <div>
+                <h3 class="text-center">Demographics Breakdown</h3>
+                <br />
+                <table class="demographTable text-center">
+                    <tr class="demographTable"><td class="demographTable"><p>Total Visitors:</p></td><td class="demographTable"><p> @Model.Count()</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Female Visitors:</p></td><td class="demographTable"><p>@ViewBag.Female</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Male Visitors:</p></td><td class="demographTable"><p>@ViewBag.Male</p></td></tr>
+                </table>
+                <br />
+                <table class="demographTable text-center">
+                    <tr class="demographTable"><td class="demographTable"><p>Visitors Under 20:</p></td><td class="demographTable"><p>@ViewBag.AgeOne</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Visitors Age 20-35:</p></td><td class="demographTable"><p>@ViewBag.AgeTwo</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Visitors Age 36-49:</p></td><td class="demographTable"><p>@ViewBag.AgeThree</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Visitors Age 49-64:</p></td><td class="demographTable"><p>@ViewBag.AgeFour</p></td></tr>
+                    <tr class="demographTable"><td class="demographTable"><p>Visitors 65 and Over:</p></td><td class="demographTable"><p>@ViewBag.AgeFive</p></td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
 </div>
-
-<h3>Other Leading Interests of your Visitors:</h3>
-
-<ol>
-    @if (ViewBag.Food > 0)
-    {
-        <li data-position="@ViewBag.Food">Food (@ViewBag.Food Stringers interested)</li>
-    }
-    @if (ViewBag.Nightlife > 0)
-    {
-        <li data-position="@ViewBag.Nightlife">Drinking/NightLife (@ViewBag.Nightlife Stringers interested)</li>
-    }
-    @if (ViewBag.Activities > 0)
-    {
-        <li data-position="@ViewBag.Activities">Activities (@ViewBag.Food Stringers interested)</li>
-    }
-    @if (ViewBag.Animals > 0)
-    {
-        <li data-position="@ViewBag.Animals">Animals (@ViewBag.Animals Stringers interested)</li>
-    }
-    @if (ViewBag.Outdoors > 0)
-    {
-        <li data-position="@ViewBag.Outdoors">Outdoors (@ViewBag.Outdoors Stringers interested)</li>
-    }
-    @if (ViewBag.Culture > 0)
-    {
-        <li data-position="@ViewBag.Culture">Culture (@ViewBag.Culture Stringers interested)</li>
-    }
-    @if (ViewBag.Fashion > 0)
-    {
-        <li data-position="@ViewBag.Fashion">Fashion (@ViewBag.Fashion Stringers interested)</li>
-    }
-    @if (ViewBag.Wellness > 0)
-    {
-        <li data-position="@ViewBag.Wellness">Wellness (@ViewBag.Wellness Stringers interested)</li>
-    }
-</ol>
