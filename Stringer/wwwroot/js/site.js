@@ -37,9 +37,13 @@ $(function () {
 //});
 
 $(function () {
-    $("#firstFade").delay(1000).fadeIn(2000);
+    $("#firstFade").delay(100).fadeIn(1000);
 });
 
 $(function () {
-    $("#secondFade").delay(3000).fadeIn("slow");
+    $("#secondFade").delay(1000).fadeIn("slow");
+});
+
+$(function () {
+    $("#thirdFade").delay(2000).fadeIn("slow");
 });

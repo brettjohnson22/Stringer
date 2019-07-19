@@ -8,10 +8,10 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">hello @UserManager.GetUserName(User)!</a>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="color:black">hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">logout</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link" style="color:black">logout</button>
             </li>
         </ul>
     </form>
@@ -19,7 +19,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">register</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Login">login</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Register" style="color:black">register</a></li>
+        @*<li><a asp-area="Identity" asp-page="/Account/Login" style="color:black">login</a></li>*@
     </ul>
 }

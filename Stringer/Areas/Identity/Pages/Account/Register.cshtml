@@ -27,45 +27,45 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+                <input asp-for="Input.Email" class="form-control blueBack" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+                <input asp-for="Input.Password" class="form-control blueBack" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <input asp-for="Input.ConfirmPassword" class="form-control blueBack" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control" />
+                <input asp-for="Input.FirstName" class="form-control blueBack" />
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" />
+                <input asp-for="Input.LastName" class="form-control blueBack" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Age"></label>
-                <input asp-for="Input.Age" class="form-control" />
+                <input asp-for="Input.Age" class="form-control blueBack" />
                 <span asp-validation-for="Input.Age" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Gender</label>
-                <select class='form-control category' style="color: black" asp-for='Input.Gender' asp-items=ViewBag.genders>Select Gender</select>
+                <select class='form-control category blueBack' style="color: black" asp-for='Input.Gender' asp-items=ViewBag.genders>Select Gender</select>
             </div>
             <div class="form-group">
                 <label>Role</label>
-                <select class='form-control category' style="color: black" asp-for='Input.ApplicationRoleName' asp-items=ViewBag.roles>Select Role</select>
+                <select class='form-control category blueBack' style="color: black" asp-for='Input.ApplicationRoleName' asp-items=ViewBag.roles>Select Role</select>
             </div>
 
 
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-default  blueBack">Register</button>
         </form>
     </div>
 </div>

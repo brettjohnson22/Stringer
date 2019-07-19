@@ -30,7 +30,8 @@ namespace Stringer.Controllers
             }
             else
             {
-                return View();
+                //return View();
+                return Redirect("/Identity/Account/Login");
             }
         }
 

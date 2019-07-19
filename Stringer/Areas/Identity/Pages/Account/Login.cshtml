@@ -5,17 +5,17 @@
     ViewData["Title"] = "log in";
 }
 
-<br /><br />
-<div class="row">
-    <div class="col-md-6">
-        <section>
+<br /><br /><div>
+    <h1 id="firstFade" style="display: none; font-family: Tahoma, Geneva, sans-serif">s t r i n g e r<img src="~/images/bigblue.jpg" /></h1><br /><br /><br />
+</div>
 
-        </section>
+<div class="row">
+    <div class="col-md-1">
+        <section></section>
     </div>
-    <div class="col-md-4 col-md-offset-2">
-        <h3>@ViewData["Title"]</h3>
+    <div class="col-md-4">
         <section>
-            <form method="post">
+            <form method="post" style="display: none" id="thirdFade">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -28,14 +28,6 @@
                     <input asp-for="Input.Password" class="form-control blueBack" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                @*<div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>*@
                 <div class="form-group">
                     <button type="submit" class="btn btn-default blueBack">log in</button>
                 </div>
@@ -47,6 +39,8 @@
             </form>
         </section>
     </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"><h4 style="display: none; font-family: Tahoma, Geneva, sans-serif" id="secondFade" class="text-right"><i>...don't forget</i></h4><br /></div>
 </div>
 
 @section Scripts {
