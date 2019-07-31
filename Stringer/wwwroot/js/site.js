@@ -45,5 +45,5 @@ $(function () {
 });
 
 $(function () {
-    $("#thirdFade").delay(2000).fadeIn("slow");
+    $("#thirdFade").delay(2500).fadeIn("slow");
 });
