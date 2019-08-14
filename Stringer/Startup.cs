@@ -48,6 +48,7 @@ namespace Stringer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IBusinessService, BusinessService>();
+            services.AddTransient<IMemberService, MemberService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

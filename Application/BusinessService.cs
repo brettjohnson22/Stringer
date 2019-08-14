@@ -20,51 +20,6 @@ namespace Application
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        //public async Task<IActionResult> ClaimBusiness(string placeId)
-        //{
-        //    var user = await _userManager.GetUserAsync(HttpContext.User);
-        //    string result;
-        //    string name;
-        //    using (var client = new HttpClient())
-        //    {
-        //        try
-        //        {
-        //            result = await client.GetStringAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&fields=name&key=" + APIKey.SecretKey);
-        //            dynamic jObj = JsonConvert.DeserializeObject(result);
-        //            name = jObj.result.name.ToString();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //    var existingBusiness = CheckExistingBuisiness(placeId);
-        //    if (existingBusiness != null && existingBusiness.IsClaimed == false)
-        //    {
-        //        existingBusiness.ApplicationUserId = user.Id;
-        //        existingBusiness.IsClaimed = true;
-        //        _context.SaveChanges();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    else if (existingBusiness != null && existingBusiness.IsClaimed == true)
-        //    {
-        //        return RedirectToAction(nameof(BusinessClaimed));
-        //    }
-        //    else
-        //    {
-        //        Location newLocation = new Location
-        //        {
-        //            Id = placeId,
-        //            Name = name,
-        //            ApplicationUserId = user.Id,
-        //            IsClaimed = true
-        //        };
-        //        user.BusinessName = name;
-        //        _context.Add(newLocation);
-        //        _context.SaveChanges();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //}
 
         public Location CheckExistingBusiness(string placeId)
         {
