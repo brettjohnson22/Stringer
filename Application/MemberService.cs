@@ -117,7 +117,6 @@ namespace Application
 
         public void AssignCategories(IEnumerable<string> categories, string userId)
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             foreach (string category in categories)
             {
                 if (category == "miscellaneous")
@@ -137,7 +136,6 @@ namespace Application
         public async Task DetermineNewInterests(ApplicationUser user)
         {
             
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
             var myInterests = _context.UserInterests.Where(ui => ui.ApplicationUserId == user.Id);
             var myKnots = _context.Knots.Where(k => k.ApplicationUserId == user.Id);
             if (myKnots.Count() > 3)
